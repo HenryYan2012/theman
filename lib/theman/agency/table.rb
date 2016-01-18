@@ -9,7 +9,7 @@ module Theman
       end
 
       def to_sql(sql = []) #:nodoc
-        sql << ["CREATE"]
+        sql << ["DROP TABLE IF EXISTS #{name};", "CREATE"]
         sql << "TEMPORARY" unless @temporary == false
         sql << "TABLE #{@name}"
         sql << "(#{@columns})"
