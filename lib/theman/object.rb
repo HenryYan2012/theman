@@ -14,7 +14,7 @@ module Theman
           @@connection = conn
         end
         instance_eval <<-EOV, __FILE__, __LINE__ + 1
-          set_table_name "#{table_name}"
+          self.table_name = "#{table_name}"
           
           def table_name
             "#{table_name}"
