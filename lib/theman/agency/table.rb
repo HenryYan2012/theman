@@ -10,8 +10,8 @@ module Theman
 
       def to_sql(sql = []) #:nodoc
         sql << ["CREATE"]
-        sql << "TEMPORARY TABLE" unless @temporary == false
-        sql << @name
+        sql << "TEMPORARY" unless @temporary == false
+        sql << "TABLE #{@name}"
         sql << "(#{@columns})"
         unless @on_commit.nil?
           sql << "ON COMMIT"
