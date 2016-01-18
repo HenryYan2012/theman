@@ -9,7 +9,7 @@ module Theman
     #   is the same class.
     # * +stream+ - path to the data file.
     # * +options+ - Additional options are <tt>:temporary</tt>, 
-    #   <tt>:on_commit</tt> and <tt>:headers</tt>
+    #   <tt>:on_commit</tt>, <tt>:table_name</tt> and <tt>:headers</tt>
     #
     # ==== Example
     #   # Update all customers with the given attributes
@@ -23,7 +23,7 @@ module Theman
       @connection   = conn
       @options      = options
 
-      @table_name         = sprintf "agent%010d", rand(100000000)
+      @table_name         = options[:table_name] || sprintf "agent%010d", rand(100000000)
       @columns            = Columns.new(conn)
       @stream_columns_set = false
 
