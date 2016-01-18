@@ -23,7 +23,7 @@ module Theman
       @connection   = conn
       @options      = options
 
-      @table_name         = options[:table_name] || sprintf "agent%010d", rand(100000000)
+      @table_name         = options[:table_name] || sprintf("agent%010d", rand(100000000))
       @columns            = Columns.new(conn)
       @stream_columns_set = false
 
