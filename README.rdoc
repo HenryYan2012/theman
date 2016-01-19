@@ -74,7 +74,7 @@ If you want to use <tt>ON COMMIT DROP</tt> you will need to pass in
     # do stuff
   end
 
-== Normal table && table name
+== Normal table & table name
 
 Theman will create temporary table by default. But if you want to create normal table you will need to pass in <tt>temporary: false</tt> into options. Also you could specify the table name by pass in <tt>table_name: YOUR_TABLE_NAME</tt> into options. Theman will drop the existing table with the same name.
 
