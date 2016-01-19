@@ -74,6 +74,12 @@ If you want to use <tt>ON COMMIT DROP</tt> you will need to pass in
     # do stuff
   end
 
+== Normal table && table name
+
+Theman will create temporary table by default. But if you want to create normal table you will need to pass in <tt>temporary: false</tt> into options. Also you could specify the table name by pass in <tt>table_name: YOUR_TABLE_NAME</tt> into options. Theman will drop the existing table with the same name.
+
+  agent = Theman::Agency.new conn, 'sample.csv', temporary: :false, table_name: "sample_table_name"
+
 == No headers
 
 If you data does not have headers pass into options <tt>:headers => false</tt>, but 
