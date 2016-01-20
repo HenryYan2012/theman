@@ -42,43 +42,7 @@ module Theman
       
       def column_to_sql(name, type, options = {}) #:nodoc:
         sql = [quote_column_name(name)]
-        case type
-        when 'integer'
-          if options[:limit]
-            case options[:limit]
-            when 1, 2;
-              sql << 'smallint'
-            when 3, 4;
-              sql << 'integer'
-            when 5..8;
-              sql << 'bigint'
-            else
-              raise ArgumentError, "No integer type has byte size #{limit}."
-            end
-          else
-            sql << 'integer'
-          end
-        when 'decimal'
-          sql << 'double precision'
-        when 'float'
-          sql << 'double precision'
-        when 'string'
-          if options[:limit]
-            sql << "character varying(#{options[:limit]})"
-          else
-            sql << 'character varying(255)'
-          end
-        when 'binary'
-          sql << 'oid'
-        when 'time'
-          sql << 'time without time zone'
-        when 'datetime'
-          sql << 'timestamp without time zone'
-        when 'timestamp'
-          sql << 'timestamp without time zone'
-        else
-          sql << type
-        end
+        sql << self.convert_type_to_sql(type, options)
 
         if options[:null] ==  false
           sql << 'NOT NULL'
@@ -93,6 +57,46 @@ module Theman
       
       def quote_column_name(name) #:nodoc:
         @connection.quote_ident(name.to_s)
+      end
+
+      def self.convert_type_to_sql(type, options = {})
+        case type
+        when 'integer'
+          if options[:limit]
+            case options[:limit]
+            when 1, 2;
+              'smallint'
+            when 3, 4;
+              'integer'
+            when 5..8;
+              'bigint'
+            else
+              raise ArgumentError, "No integer type has byte size #{limit}."
+            end
+          else
+            'integer'
+          end
+        when 'decimal'
+          'double precision'
+        when 'float'
+          'double precision'
+        when 'string'
+          if options[:limit]
+            "character varying(#{options[:limit]})"
+          else
+            'character varying(255)'
+          end
+        when 'binary'
+          'oid'
+        when 'time'
+          'time without time zone'
+        when 'datetime'
+          'timestamp without time zone'
+        when 'timestamp'
+          'timestamp without time zone'
+        else
+          type
+        end
       end
     end
   end
