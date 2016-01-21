@@ -42,7 +42,7 @@ module Theman
       
       def column_to_sql(name, type, options = {}) #:nodoc:
         sql = [quote_column_name(name)]
-        sql << self.convert_type_to_sql(type, options)
+        sql << Columns.convert_type_to_sql(type, options)
 
         if options[:null] ==  false
           sql << 'NOT NULL'
