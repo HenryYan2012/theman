@@ -180,16 +180,18 @@ module Theman
     end
 
     class Error < Exception
-      attr_accessor :code, :constant, :error, :context
+      attr_accessor :code, :constant, :error, :context, :message
 
       def initialize(code, constant, message)
         @code = code
         @constant = constant
+        @message = message
         @error, @context = message.split(/\n/)
       end
       
       def to_s
-        @error
+        # @error
+        @message
       end
     end
   end
